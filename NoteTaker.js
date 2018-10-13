@@ -36,22 +36,22 @@ export default class NoteTaker extends React.Component {
     let result = await ImagePicker.launchCameraAsync({
       aspect: [4, 3],
     });
-  
+
     if (result.cancelled) {
       return;
     }
-  
+
     // ImagePicker saves the taken photo to disk and returns a local URI to it
     let localUri = result.uri;
     let filename = localUri.split('/').pop();
-  
+
     this.setState({pictures:localUri});
     console.log(this.state)
 
     // Infer the type of the image
     let match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : `image`;
-  
+
     // Upload the image using the fetch and FormData APIs
     let formData = new FormData();
     // Assume "photo" is the name of the form field the server expects
@@ -65,13 +65,13 @@ export default class NoteTaker extends React.Component {
         behavior="padding">
       <View style={styles.container}>
         <View style={styles.imgInput}>
-        
-        <TouchableHighlight 
+
+        <TouchableHighlight
             style={styles.verifyImage}
             onPress={() => {
                 this.takeAndUploadPhotoAsync();
             }}>
-            <ImageBackground 
+            <ImageBackground
             source={{uri:this.state.pictures}}
                 style={styles.verifyImage}/>
           </TouchableHighlight>
@@ -79,7 +79,7 @@ export default class NoteTaker extends React.Component {
 
         <View style={styles.noteInput}>
             <Text style={styles.noteTitle}> Enter your note:</Text>
-            <TextInput 
+            <TextInput
                 multiline={true}
                 style={styles.textInput}
                 placeholder=""
@@ -87,13 +87,13 @@ export default class NoteTaker extends React.Component {
             />
         </View>
 
-        <Button 
+        <Button
             onPress={this.handleSubmitClick}
             title="Send Note"
             color="#fa8072"
             opacity="0.7"
             style={styles.submitButton}
-        />        
+        />
       </View>
       </KeyboardAvoidingView>
     );
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     height:300,
   },
 
-  noteInput:{  
+  noteInput:{
     height:120,
     marginBottom:10,
   },
