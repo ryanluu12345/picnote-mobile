@@ -1,18 +1,30 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, Image,ImageBackground, Button, CameraRoll, TouchableOpacity,TouchableHighlight,KeyboardAvoidingView } from 'react-native';
+import {StyleSheet, Text, View, TextInput, Image,ImageBackground, ScrollView, Button, CameraRoll, TouchableOpacity,TouchableHighlight,KeyboardAvoidingView } from 'react-native';
 import { ImagePicker,Camera, Permissions } from 'expo';
 
 export default class NoteTaker extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = {text:"",pictures:"http://vectips.com/wp-content/uploads/2017/03/project-preview-large-2.png"};
+        this.state = {text:"",courseCode:"",pictures:"http://vectips.com/wp-content/uploads/2017/03/project-preview-large-2.png"};
     }
 
 
   handleSubmitClick(){
-      console.log("yeet");
-  }
+    let uri = this.state.pictures;
+    fetch(uri, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        Note: this.state.text,
+        CourseCode: this.state.courseCode,
+        Image: this.state.pictures
+      }),
+    });
+    }
 
   async componentWillMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -63,9 +75,10 @@ export default class NoteTaker extends React.Component {
 
     <KeyboardAvoidingView
         behavior="padding">
+      <ScrollView>
       <View style={styles.container}>
         <View style={styles.imgInput}>
-
+        <Text style={styles.noteTitle}> Upload Photo</Text>
         <TouchableHighlight
             style={styles.verifyImage}
             onPress={() => {
@@ -77,16 +90,25 @@ export default class NoteTaker extends React.Component {
           </TouchableHighlight>
         </View>
 
-        <View style={styles.noteInput}>
-            <Text style={styles.noteTitle}> Enter your note:</Text>
+        <View style={styles.noteInputText}>
+            <Text style={styles.noteTitle}> Enter your Note:</Text>
             <TextInput
                 multiline={true}
                 style={styles.textInput}
                 placeholder=""
                 onChangeText={(text)=>this.setState({text})}
             />
-        </View>
 
+        </View>
+        <View style={styles.noteInput}>
+          <Text style={styles.noteTitle}>Course Code:</Text>
+          <TextInput
+                multiline={false}
+                style={styles.textInput}
+                placeholder=""
+                onChangeText={(courseCode)=>this.setState({courseCode})}
+          />
+        </View>
         <Button
             onPress={this.handleSubmitClick}
             title="Send Note"
@@ -95,6 +117,7 @@ export default class NoteTaker extends React.Component {
             style={styles.submitButton}
         />
       </View>
+      </ScrollView>
       </KeyboardAvoidingView>
     );
   }
@@ -111,6 +134,9 @@ const styles = StyleSheet.create({
 
   noteTitle:{
     height:40,
+    fontSize: 20,
+    fontWeight: '400',
+    fontFamily: 'Noteworthy',
     textAlign:'center',
   },
 
@@ -122,7 +148,13 @@ const styles = StyleSheet.create({
   },
 
   imgInput:{
-    height:300,
+    height:300
+  },
+
+  noteInputText:{
+    height:120,
+    marginTop: 35,
+    marginBottom:10,
   },
 
   noteInput:{
@@ -134,7 +166,7 @@ const styles = StyleSheet.create({
     backgroundColor:"#fa8072",
     width:40,
     height:40,
-    marginTop:100,
+    marginTop:30,
   },
 
   capture:{
@@ -143,8 +175,8 @@ const styles = StyleSheet.create({
   },
 
   verifyImage:{
-      height:250,
-      borderRadius:20,
+      height:290,
+      borderRadius:20
   }
 
 });
