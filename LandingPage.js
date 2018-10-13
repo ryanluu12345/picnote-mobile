@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 export default class LandingPage extends React.Component {
@@ -16,16 +16,13 @@ export default class LandingPage extends React.Component {
 
   render() {
 
-    const { navigate } = this.props.navigation;
-    
     return (
     <View style={landing_style.background}>
 
       <Text style={landing_style.font}>PicNote Mobile</Text>
       <Image source = {require('./assets/note_taking.png')} style={{width:250,height:250,padding:50,margin:50}}/>
 
-      <TouchableOpacity style={landing_style.button}>
-        onPress={() => this.handleOnPress()}
+      <TouchableOpacity style={landing_style.button} onPress={() => this.props.navigation.navigate('Note')}>
         <Text style={landing_style.buttonFont}> Continue </Text>
       </TouchableOpacity>
 

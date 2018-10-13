@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     justifyContent:'center',
     padding:10,
+    backgroundColor: '#ffffff'
   },
 
   noteTitle:{
