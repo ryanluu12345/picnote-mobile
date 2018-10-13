@@ -8,6 +8,7 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
         <Image source = {{uri:'https://barkpost.com/wp-content/uploads/2015/02/featmeme.jpg'}} style={{width:400,height:400}} />
+        <LandingPage />
       </View>
     );
   }
