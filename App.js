@@ -1,4 +1,5 @@
 import React from 'react';
+import LandingPage from 'landing_page'
 import { StyleSheet, Text, View, Image } from 'react-native';
 
 export default class App extends React.Component {
