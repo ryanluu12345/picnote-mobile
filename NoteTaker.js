@@ -7,25 +7,26 @@ export default class NoteTaker extends React.Component {
     constructor(props){
         super(props);
         this.state = {text:"",courseCode:"",pictures:"http://vectips.com/wp-content/uploads/2017/03/project-preview-large-2.png"};
+        this.formData = new FormData();
+        this.takeAndUploadPhotoAsync = this.takeAndUploadPhotoAsync.bind(this);
+        this.handleSubmitClick = this.handleSubmitClick.bind(this);
     }
 
 
   handleSubmitClick(){
-    let uri = this.state.pictures;
+    let uri = 'https://799b1de2.ngrok.io/upload';
+    this.formData.append("note", this.state.text);
+    this.formData.append("course_code", this.state.courseCode);
     fetch(uri, {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data',
       },
-      body: JSON.stringify({
-        note: this.state.text,
-        course_code: this.state.courseCode,
-        node_img: this.state.pictures
-      }),
+      body: this.formData
     });
 
-    return this.props.navigation.navigate('Display');
+    //return this.props.navigation.navigate('Display');
     }
 
   async componentWillMount() {
@@ -67,9 +68,8 @@ export default class NoteTaker extends React.Component {
     let type = match ? `image/${match[1]}` : `image`;
 
     // Upload the image using the fetch and FormData APIs
-    let formData = new FormData();
     // Assume "photo" is the name of the form field the server expects
-    formData.append('photo', { uri: localUri, name: filename, type });
+    this.formData.append('photo', { uri: localUri, name: filename, type });
 }
 
   render() {
@@ -98,7 +98,7 @@ export default class NoteTaker extends React.Component {
                 multiline={true}
                 style={styles.textInput}
                 placeholder=""
-                onChangeText={(text)=>this.setState({text})}
+                onChangeText={(text)=>this.setState({text:text})}
             />
 
         </View>
@@ -108,7 +108,7 @@ export default class NoteTaker extends React.Component {
                 multiline={false}
                 style={styles.textInput}
                 placeholder=""
-                onChangeText={(courseCode)=>this.setState({courseCode})}
+                onChangeText={(courseCode)=>this.setState({courseCode:courseCode})}
           />
         </View>
         <Button
