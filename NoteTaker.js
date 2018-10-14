@@ -14,7 +14,7 @@ export default class NoteTaker extends React.Component {
 
 
   handleSubmitClick(){
-    let uri = 'https://799b1de2.ngrok.io/upload';
+    let uri = 'https://799b1de2.ngrok.io/api/API_KEY/' + this.state.courseCode + '/post_note';
     this.formData.append("note", this.state.text);
     this.formData.append("course_code", this.state.courseCode);
     fetch(uri, {
