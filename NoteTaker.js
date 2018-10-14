@@ -26,7 +26,9 @@ export default class NoteTaker extends React.Component {
       body: this.formData
     });
 
-    //return this.props.navigation.navigate('Display');
+    //uri = 'https://799b1de2.ngrok.io/api/API_KEY/' + '1' + '/get_notes_by_section';
+    //fetch(uri).then((response) => response.text()).then((responseText) => {console.log(JSON.parse(responseText));});
+    return this.props.navigation.navigate('ThankYou');
     }
 
   async componentWillMount() {
