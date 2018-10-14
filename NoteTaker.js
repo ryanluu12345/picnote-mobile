@@ -19,11 +19,13 @@ export default class NoteTaker extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        Note: this.state.text,
-        CourseCode: this.state.courseCode,
-        Image: this.state.pictures
+        note: this.state.text,
+        course_code: this.state.courseCode,
+        node_img: this.state.pictures
       }),
     });
+
+    return this.props.navigation.navigate('Display');
     }
 
   async componentWillMount() {
