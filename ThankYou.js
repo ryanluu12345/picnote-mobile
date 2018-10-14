@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
 
   textStyle: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: '400',
     fontFamily: 'Noteworthy',
     textAlign:'center',

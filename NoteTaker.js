@@ -104,7 +104,7 @@ export default class NoteTaker extends React.Component {
             />
 
         </View>
-        <View style={styles.noteInput}>
+        <View style={styles.codeInputText}>
           <Text style={styles.noteTitle}>Course Code:</Text>
           <TextInput
                 multiline={false}
@@ -158,12 +158,12 @@ const styles = StyleSheet.create({
   noteInputText:{
     height:120,
     marginTop: 35,
-    marginBottom:10,
+    marginBottom:10
   },
 
-  noteInput:{
+  codeInputText:{
     height:120,
-    marginBottom:10,
+    marginBottom:10
   },
 
   submitButton:{
